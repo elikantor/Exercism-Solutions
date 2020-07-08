@@ -3,21 +3,20 @@
 // convenience to get you started writing code faster.
 //
 
-export const translate = (codon) => {
+export const translate = (rna) => {
   let proteins = []
-  if (!codon) return proteins
-  if (codon.length % 3 !== 0) throw new Error('Invalid codon')
-  let numOfCodons = codon.length / 3
-  let arr = []
+  if (!rna) return proteins
+  if (rna.length % 3 !== 0) throw new Error('Invalid codon')
+  let numOfCodons = rna.length / 3
 
   for (let i = 0; i < numOfCodons; i++) {
-    arr.push(codon.slice(i*3,i*3+3))
+    proteins.push(rna.slice(i*3,i*3+3))
   }
   
-  for (let i = 0; i < arr.length; i++) {
-    if(!HASH[arr[i]]) throw new Error('Invalid codon')
-    if(HASH[arr[i]] === 'STOP') break
-    proteins.push(HASH[arr[i]])
+  for (let i = 0; i < proteins.length; i++) {
+    if(!HASH[proteins[i]]) throw new Error('Invalid codon')
+    if(HASH[proteins[i]] === 'STOP') return proteins.slice(0,i)
+    proteins[i] = HASH[proteins[i]]
   }
   return proteins
 };
