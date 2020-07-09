@@ -6,25 +6,13 @@
 export const toRna = (string) => {
   if(string.length === 0) return string
   let arr = string.split("")
-
-  for (let i = 0; i < arr.length; i++) {
-    let DNA = arr[i]
-    switch (DNA) {
-      case 'G':
-        arr[i] = "C"
-        break
-      case 'C':
-        arr[i] = "G"
-        break
-      case 'T':
-        arr[i] = "A"
-        break
-      case 'A':
-        arr[i] = "U"
-        break
-    }
-  }
-  return arr.join("")
-
-
+  return arr.map(dna => TRANSCRIPTION[dna]).join("")
 }
+
+const TRANSCRIPTION = {
+  G: "C",
+  C: "G",
+  T: "A",
+  A: "U"
+}
+
