@@ -4,9 +4,7 @@
 //
 
 export const toRna = (string) => {
-  if(string.length === 0) return string
-  let arr = string.split("")
-  return arr.map(dna => TRANSCRIPTION[dna]).join("")
+  return [...string].map(dna => TRANSCRIPTION[dna]).join("")
 }
 
 const TRANSCRIPTION = {
