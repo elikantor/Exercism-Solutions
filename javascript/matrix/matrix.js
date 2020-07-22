@@ -6,17 +6,8 @@ export class Matrix {
   generateMatrix() {
     let stringArr = this.string.split("\n")
     let matrix = stringArr.map((subArr) => {
-      return subArr.split(" ")
+      return subArr.split(" ").map(char => parseInt(char))
     })
-    let i = 0
-    while(i < matrix.length) {
-      let j = 0
-      while (j < matrix[0].length) {
-        matrix[i][j] = parseInt(matrix[i][j])
-        j++
-      }
-      i++
-    }
     return matrix
   }
 
