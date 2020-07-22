@@ -4,10 +4,7 @@ export class Matrix {
   }
 
   generateMatrix() {
-    let stringArr = this.string.split("\n")
-    let matrix = stringArr.map((subArr) => {
-      return subArr.split(" ").map(char => parseInt(char))
-    })
+    let matrix = this.string.split("\n").map((subArr) => subArr.split(" ").map((char) => parseInt(char)))
     return matrix
   }
 
