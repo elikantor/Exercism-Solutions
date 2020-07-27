@@ -1,18 +1,13 @@
 export class Matrix {
   constructor(string) {
-    this.string = string
-  }
-
-  generateMatrix() {
-    return this.string.split("\n").map((subArr) => subArr.split(" ").map((char) => Number(char)))
+    this.matrix = string.split("\n").map((subArr) => subArr.split(" ").map((char) => Number(char)))
   }
 
   get rows() {
-    return this.generateMatrix()
+    return this.matrix
   }
 
   get columns() {
-    const matrix = this.generateMatrix()
-    return matrix[0].map((column, index) => matrix.map(row => row[index]))
+    return this.matrix[0].map((column, index) => this.matrix.map(row => row[index]))
   }
 }
