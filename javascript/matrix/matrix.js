@@ -4,33 +4,14 @@ export class Matrix {
   }
 
   generateMatrix() {
-    let matrix = this.string.split("\n").map((subArr) => subArr.split(" ").map((char) => parseInt(char)))
-    return matrix
+    return this.string.split("\n").map((subArr) => subArr.split(" ").map((char) => parseInt(char)))
   }
-
-  generateRow(){
-    let matrix = this.generateMatrix()
-    let rotatedMatrix = []
-    let j = 0
-    while(j < matrix[0].length) {
-      let i = 0
-      let subArr = []
-      while (i < matrix.length) {
-        subArr.push(matrix[i][j])
-        i++
-      }
-      rotatedMatrix.push(subArr)
-      j++
-    }
-    return rotatedMatrix
-  }
-
 
   get rows() {
     return this.generateMatrix()
   }
 
   get columns() {
-    return this.generateRow()
+    return this.generateMatrix()[0].map((column, index) => this.generateMatrix().map(row => row[index]))
   }
 }
