@@ -4,7 +4,7 @@ export class Matrix {
   }
 
   generateMatrix() {
-    return this.string.split("\n").map((subArr) => subArr.split(" ").map((char) => parseInt(char)))
+    return this.string.split("\n").map((subArr) => subArr.split(" ").map((char) => Number(char)))
   }
 
   get rows() {
@@ -12,6 +12,7 @@ export class Matrix {
   }
 
   get columns() {
-    return this.generateMatrix()[0].map((column, index) => this.generateMatrix().map(row => row[index]))
+    const matrix = this.generateMatrix()
+    return matrix[0].map((column, index) => matrix.map(row => row[index]))
   }
 }
