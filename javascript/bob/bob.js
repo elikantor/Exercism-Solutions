@@ -1,24 +1,22 @@
 import { stringify } from "querystring";
 
 export const hey = (message) => {
-  const blanks = /\s/g;
-  const newMessage = message.replace(blanks, "");
-  if ((/[a-z]/g.test(newMessage) || /:/g.test(newMessage))) {
-    if (newMessage[newMessage.length-1] === "?") return "Sure.";
-    else return "Whatever.";
-  } else if (/[A-Z]/g.test(newMessage)) {
-    if (newMessage[newMessage.length-1] === "?") return "Calm down, I know what I'm doing!";
+  let index = -1
+  while (message[message.length + index] === " ") index--
+  const last = message[message.length + index]
+  
+  if (/[A-Z]/.test(message) && !/[a-z]/.test(message)) {
+    if (last === "?") return "Calm down, I know what I'm doing!";
     else return "Whoa, chill out!";
-  } else if (/[0-9]/g.test(newMessage)) {
-    if (newMessage[newMessage.length-1] === "?") return "Sure.";
+  } else if (/\w|:/.test(message)) {
+    if (last === "?") return "Sure.";
     else return "Whatever.";
   } else {
     return "Fine. Be that way!"
   };
 };
-
 /*
-ignore all non letters except for last character
+  ignore all non letters except for last character
   yell = if every letter is in caps without ending in ? - return "Whoa, chill out!"
   yell and ask = if every letter is in caps and ending in ? - return "Calm down, I know what I'm doing!"
   empty string return "Fine. Be that way!"
