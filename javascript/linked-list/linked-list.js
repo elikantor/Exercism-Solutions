@@ -1,10 +1,10 @@
-function Node(val=0, next=null, previous=null) {
-  this.val = val,
-  this.next = next, 
-  this.previous = previous
+class Node{
+  constructor(val=0, next=null, previous=null) {
+    this.val = val,
+    this.next = next, 
+    this.previous = previous
+  }
 }
-
-
 
 export class LinkedList {
   constructor(head=null, tail=null, size=0) {
@@ -12,59 +12,53 @@ export class LinkedList {
     this.tail = tail,
     this.size = size
   }
+
   push(val) {
-    let node = new Node(val)
-    if(!this.head) {
-      this.head = node
-      this.tail = node
-      this.size = 1
-    } else {
-      let prevTail = this.tail
-      prevTail.next = node
-      node.previous = prevTail
-      this.tail = node
-      this.size++
-    }
+    this.add(val, 'back')
+  }
+
+  unshift(val) {
+    this.add(val, "front")
   }
 
   pop() {
-    let node = this.tail
-    if(this.size === 1) {
-      this.tail = null
-      this.head = null
-    } else {
-      this.tail = node.previous
-      node.previous = null
-    }
-    this.size--
-    return node.val
+    this.remove('back')
   }
 
   shift() {
-    let node = this.head
-    if(this.size ===1) {
+    this.remove()
+  }
+
+  remove(direction) {
+    if(this.size === 1) {
       this.head = null
       this.tail = null
+    } else if (direction === 'back') {
+      this.tail = node.previous
+      node.previous = null
     } else {
       this.head = node.next
       node.next = null
     }
     this.size--
-    return node.val
   }
 
-  unshift(val) {
-    let node = new Node(val)
+  add(val, direction) {
+    const node = new Node(val)
     if(!this.head) {
       this.head = node
       this.tail = node
-      this.size++
+    } else if (direction === 'back') {
+      let prevTail = this.tail
+      prevTail.next = node
+      node.previous = prevTail
+      this.tail = node
     } else {
       this.head.previous = node 
       node.next = this.head 
       this.head = node
-      this.size++
     }
+    this.size++
   }
 
   delete(val) {
