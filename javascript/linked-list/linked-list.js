@@ -14,33 +14,19 @@ export class LinkedList {
   }
 
   push(val) {
-    this.add(val, 'back')
+    return this.add(val, 'back')
   }
 
   unshift(val) {
-    this.add(val, "front")
+    return this.add(val, "front")
   }
 
   pop() {
-    this.remove('back')
+    return this.delete(null, 'back')
   }
 
   shift() {
-    this.remove()
-  }
-
-  remove(direction) {
-    if(this.size === 1) {
-      this.head = null
-      this.tail = null
-    } else if (direction === 'back') {
-      this.tail = node.previous
-      node.previous = null
-    } else {
-      this.head = node.next
-      node.next = null
-    }
-    this.size--
+    return this.delete(null)
   }
 
   add(val, direction) {
@@ -61,12 +47,20 @@ export class LinkedList {
     this.size++
   }
 
-  delete(val) {
-    let node = this.traverse(val)
+  delete(val, direction) {
+    let node = val ? this.traverse(val) : direction === 'back' ? this.tail : this.head
     if(!node) return
     if(this.size === 1) {
       this.head = null
       this.tail = null
+    } else if (!val) {
+      if (direction === 'back') {
+        this.tail = node.previous
+        node.previous = null
+      } else {
+        this.head = node.next
+        node.next = null
+      }
     } else {
       if(node.previous && node.next) {
         let prevNode = node.previous
