@@ -14,15 +14,15 @@ export class LinkedList {
   }
 
   push(val) {
-    return this.add(val, 'back')
+    return this.add(val, 'tail')
   }
 
   unshift(val) {
-    return this.add(val, "front")
+    return this.add(val, 'head')
   }
 
   pop() {
-    return this.delete(null, 'back')
+    return this.delete(null, 'tail')
   }
 
   shift() {
@@ -34,7 +34,7 @@ export class LinkedList {
     if(!this.head) {
       this.head = node
       this.tail = node
-    } else if (direction === 'back') {
+    } else if (direction === 'tail') {
       let prevTail = this.tail
       prevTail.next = node
       node.previous = prevTail
@@ -48,36 +48,27 @@ export class LinkedList {
   }
 
   delete(val, direction) {
-    let node = val ? this.traverse(val) : direction === 'back' ? this.tail : this.head
-    if(!node) return
-    if(this.size === 1) {
+    let node = val ? this.traverse(val) : direction === 'tail' ? this.tail : this.head
+    if(!node) { 
+      return 
+    } else if (this.size === 1) {
       this.head = null
       this.tail = null
-    } else if (!val) {
-      if (direction === 'back') {
-        this.tail = node.previous
-        node.previous = null
-      } else {
-        this.head = node.next
-        node.next = null
-      }
+    } else if (node === this.head) {
+      this.head = node.next
+      node.next = null
+      this.head.previous = null
+    } else if (node === this.tail) {
+      this.tail = node.previous
+      node.previous = null
+      this.tail.next = null
     } else {
-      if(node.previous && node.next) {
-        let prevNode = node.previous
-        let nextNode = node.next
-        prevNode.next = nextNode
-        nextNode.previous = prevNode
-        node.next = null
-        node.previous = null
-      } else if (!node.previous) {
-        this.head = node.next
-        node.next = null
-        this.head.previous = null
-      } else {
-        this.tail = node.previous
-        node.previous = null
-        this.tail.next = null
-      }
+      let prevNode = node.previous
+      let nextNode = node.next
+      prevNode.next = nextNode
+      nextNode.previous = prevNode
+      node.next = null
+      node.previous = null
     }
     this.size--
     return node.val
