@@ -1,15 +1,15 @@
 class Node{
   constructor(val=0, next=null, previous=null) {
-    this.val = val,
-    this.next = next, 
+    this.val = val
+    this.next = next 
     this.previous = previous
   }
 }
 
 export class LinkedList {
   constructor(head=null, tail=null, size=0) {
-    this.head = head,
-    this.tail = tail,
+    this.head = head
+    this.tail = tail
     this.size = size
   }
 
@@ -22,22 +22,21 @@ export class LinkedList {
   }
 
   pop() {
-    return this.delete(null, 'tail')
+    return this.delete(this.tail.val)
   }
 
   shift() {
-    return this.delete(null)
+    return this.delete(this.head.val)
   }
 
-  add(val, direction) {
+  add(val, position) {
     const node = new Node(val)
     if(!this.head) {
       this.head = node
       this.tail = node
-    } else if (direction === 'tail') {
-      let prevTail = this.tail
-      prevTail.next = node
-      node.previous = prevTail
+    } else if (position === 'tail') {
+      this.tail.next = node
+      node.previous = this.tail
       this.tail = node
     } else {
       this.head.previous = node 
@@ -47,8 +46,8 @@ export class LinkedList {
     this.size++
   }
 
-  delete(val, direction) {
-    let node = val ? this.traverse(val) : direction === 'tail' ? this.tail : this.head
+  delete(val) {
+    let node = this.find(val)
     if(!node) { 
       return 
     } else if (this.size === 1) {
@@ -78,12 +77,11 @@ export class LinkedList {
     return this.size
   }
 
-  traverse(val) {
+  find(val) {
     let node = this.head
     while(node){
       if(node.val === val) return node
       else node = node.next
     }
-    return undefined
   }
 }
